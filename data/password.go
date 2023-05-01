@@ -14,3 +14,11 @@ func InsertPassword(serviceName string, value string) {
 		remindInit()
 	}
 }
+
+func ReadAllPasswords() []Password {
+	passwords := []Password{}
+	if err := db.Find(&passwords).Error; err != nil {
+		remindInit()
+	}
+	return passwords
+}
