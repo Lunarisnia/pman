@@ -22,3 +22,12 @@ func ReadAllPasswords() []Password {
 	}
 	return passwords
 }
+
+func ReadOnePassword(passwordID string) Password {
+	p := Password{}
+	if err := db.Where("id = ?", passwordID).First(&p).Error; err != nil {
+		remindInit()
+	}
+
+	return p
+}
