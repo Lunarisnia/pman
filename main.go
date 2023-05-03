@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	defer data.EncryptFile()
 	data.OpenDatabase()
 	cmd.Execute()
 }

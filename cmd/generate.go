@@ -30,7 +30,6 @@ var generateCmd = &cobra.Command{
 		}
 		data.InsertPassword(serviceName, generatedPassword)
 
-		data.EncryptFile()
 		fmt.Fprintf(cmd.OutOrStdout(), "Generated Password: %v\n", generatedPassword)
 		return nil
 	},
