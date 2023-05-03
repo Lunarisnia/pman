@@ -20,7 +20,6 @@ var showCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		data.DecryptFile()
 		password := data.ReadOnePassword(passwordID)
-		data.EncryptFile()
 
 		fmt.Printf("%v: %v", password.ServiceName, password.Value)
 		return nil

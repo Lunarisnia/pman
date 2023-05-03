@@ -18,7 +18,6 @@ var listCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		data.DecryptFile()
 		passwords := data.ReadAllPasswords()
-		data.EncryptFile()
 
 		for _, password := range passwords {
 			fmt.Println(password.ID, password.ServiceName)
