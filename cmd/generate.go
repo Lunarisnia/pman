@@ -23,12 +23,14 @@ var generateCmd = &cobra.Command{
 	Usage:
 	pman generate --name facebook --length 16`,
 	RunE: func(cmd *cobra.Command, args []string) error {
+		data.DecryptFile()
 		generatedPassword := ""
 		for i := 0; i < passwordLength; i++ {
 			generatedPassword += randomChar()
 		}
 		data.InsertPassword(serviceName, generatedPassword)
 
+		data.EncryptFile()
 		fmt.Fprintf(cmd.OutOrStdout(), "Generated Password: %v\n", generatedPassword)
 		return nil
 	},

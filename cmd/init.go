@@ -17,6 +17,7 @@ var initCmd = &cobra.Command{
 	Long:  `Initiate the database for the program`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		data.MigrateDatabase()
+		data.EncryptFile()
 		fmt.Fprintln(cmd.OutOrStdout(), "Database Initiated")
 		return nil
 	},

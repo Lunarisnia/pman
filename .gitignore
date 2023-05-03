@@ -8,6 +8,7 @@
 *.so
 *.dylib
 *.db
+*.pman
 
 # Test binary, built with `go test -c`
 *.test
