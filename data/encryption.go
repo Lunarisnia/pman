@@ -53,6 +53,7 @@ func readFile(path string) []byte {
 
 func deleteFile() {
 	emptyBytes := []byte{}
+	// TODO: change this to the new path system
 	if err := os.WriteFile(dirname()+"/pman-vault.db", emptyBytes, 0777); err != nil {
 		log.Fatalf("delete file err: %v", err.Error())
 	}
