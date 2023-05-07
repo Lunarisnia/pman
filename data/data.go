@@ -13,8 +13,7 @@ var db *gorm.DB
 func OpenDatabase() error {
 	var err error
 
-	// TODO: add encryption for the database file
-	db, err = gorm.Open(sqlite.Open("pman-vault.db"), &gorm.Config{})
+	db, err = gorm.Open(sqlite.Open("pman-vault.pman"), &gorm.Config{})
 	if err != nil {
 		return err
 	}
