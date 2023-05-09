@@ -2,24 +2,20 @@ package config
 
 import (
 	"os"
-	"runtime"
 )
 
-func currentOS() string {
-	return runtime.GOOS
-}
+var DBPATH = ConfigFilePath() + "\\pman-vault.pman"
 
 func ConfigFilePath() string {
-	switch currentOS() {
-	case "windows":
-		return "%PROGRAMDATA%/pman"
-	default:
-		return "etc/pman"
-	}
+	configDir, _ := os.UserConfigDir()
+	return configDir + "\\pman"
 }
 
 func CheckDatabaseFile() bool {
-	filepath := ConfigFilePath() + "/pman-vault.pman"
+	filepath := DBPATH
+	if _, err := os.ReadDir(ConfigFilePath()); err != nil {
+		os.Mkdir(ConfigFilePath(), 0777)
+	}
 	_, err := os.ReadFile(filepath)
 
 	return err == nil

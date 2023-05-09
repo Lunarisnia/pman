@@ -4,6 +4,8 @@ import (
 	"crypto/cipher"
 	"log"
 	"os"
+
+	"github.com/lunarisnia/pman/config"
 )
 
 func getNonce(cipherText []byte, nonceSize int) []byte {
@@ -11,7 +13,7 @@ func getNonce(cipherText []byte, nonceSize int) []byte {
 }
 
 func DecryptFile() {
-	cipherText := readFile(dirname() + "/pman-vault.pman")
+	cipherText := readFile(config.DBPATH)
 	block := createBlock()
 
 	gcm, err := cipher.NewGCM(block)
@@ -27,7 +29,7 @@ func DecryptFile() {
 		log.Fatalf("decrypt file err: %v", err.Error())
 	}
 
-	err = os.WriteFile(dirname()+"/pman-vault.db", plainText, 0777)
+	err = os.WriteFile(config.DBPATH, plainText, 0777)
 	if err != nil {
 		log.Fatalf("write file err: %v", err.Error())
 	}

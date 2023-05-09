@@ -1,19 +1,23 @@
 package data
 
 import (
+	"fmt"
 	"log"
 	"os"
 
 	"github.com/glebarez/sqlite"
+	"github.com/lunarisnia/pman/config"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB
 
 func OpenDatabase() error {
+	config.CheckDatabaseFile()
 	var err error
 
-	db, err = gorm.Open(sqlite.Open("pman-vault.pman"), &gorm.Config{})
+	db, err = gorm.Open(sqlite.Open(config.DBPATH), &gorm.Config{})
+	fmt.Println(config.DBPATH)
 	if err != nil {
 		return err
 	}

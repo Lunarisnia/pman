@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"gorm.io/gorm"
 )
 
@@ -11,6 +13,7 @@ type Password struct {
 }
 
 func InsertPassword(serviceName string, value string) {
+	fmt.Println("YES THIS IS CALLED: ", db != nil)
 	password := Password{ServiceName: serviceName, Value: value}
 	if err := db.Create(&password).Error; err != nil {
 		EncryptFile()

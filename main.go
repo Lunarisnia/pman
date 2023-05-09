@@ -9,7 +9,10 @@ import (
 )
 
 func main() {
+	// TODO: FIX THIS ERROR:
+	// D:/Personal/Workplace/golang-dojo/pman/data/password.go:18 file is not a database (26)
 	defer data.EncryptFile()
 	data.OpenDatabase()
+	// data.MigrateDatabase()
 	cmd.Execute()
 }
