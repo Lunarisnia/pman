@@ -7,6 +7,8 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"github.com/lunarisnia/pman/config"
 )
 
 func dirname() string {
@@ -19,6 +21,7 @@ func dirname() string {
 }
 
 func readKey() []byte {
+	// TODO: This return the current path where the command is called not where the program is, change it!
 	key, err := os.ReadFile(dirname() + "/pman-key.txt")
 	if err != nil {
 		log.Fatalf("keyfile read err: %v", err.Error())
@@ -51,13 +54,6 @@ func readFile(path string) []byte {
 	return plainText
 }
 
-func deleteFile() {
-	emptyBytes := []byte{}
-	if err := os.WriteFile(dirname()+"/pman-vault.db", emptyBytes, 0777); err != nil {
-		log.Fatalf("delete file err: %v", err.Error())
-	}
-}
-
 func EncryptFile() {
 	block := createBlock()
 	gcm, err := cipher.NewGCM(block)
@@ -66,13 +62,11 @@ func EncryptFile() {
 	}
 
 	nonce := generateNonce(gcm.NonceSize())
-	plainText := readFile(dirname() + "/pman-vault.db")
+	plainText := readFile(config.DBPATH)
 
 	cipherText := gcm.Seal(nonce, nonce, plainText, nil)
-	err = os.WriteFile(dirname()+"/pman-vault.pman", cipherText, 0777)
+	err = os.WriteFile(config.DBPATH, cipherText, 0777)
 	if err != nil {
 		log.Fatalf("write file err: %v", err.Error())
 	}
-
-	deleteFile()
 }
