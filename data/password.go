@@ -1,8 +1,6 @@
 package data
 
 import (
-	"fmt"
-
 	"gorm.io/gorm"
 )
 
@@ -13,19 +11,16 @@ type Password struct {
 }
 
 func InsertPassword(serviceName string, value string) {
-	fmt.Println("YES THIS IS CALLED: ", db != nil)
 	password := Password{ServiceName: serviceName, Value: value}
 	if err := db.Create(&password).Error; err != nil {
-		EncryptFile()
-		remindInit()
+		errorHandler()
 	}
 }
 
 func ReadAllPasswords() []Password {
 	passwords := []Password{}
 	if err := db.Find(&passwords).Error; err != nil {
-		EncryptFile()
-		remindInit()
+		errorHandler()
 	}
 	return passwords
 }
@@ -33,8 +28,7 @@ func ReadAllPasswords() []Password {
 func ReadOnePassword(passwordID string) Password {
 	p := Password{}
 	if err := db.Where("id = ?", passwordID).First(&p).Error; err != nil {
-		EncryptFile()
-		remindInit()
+		errorHandler()
 	}
 
 	return p

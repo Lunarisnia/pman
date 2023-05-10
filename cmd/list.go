@@ -16,7 +16,6 @@ var listCmd = &cobra.Command{
 	Short: "Show the list of your saved password service names",
 	Long:  `Show the list of your saved password service names`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		data.DecryptFile()
 		passwords := data.ReadAllPasswords()
 
 		for _, password := range passwords {

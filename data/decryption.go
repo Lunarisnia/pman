@@ -13,6 +13,9 @@ func getNonce(cipherText []byte, nonceSize int) []byte {
 }
 
 func DecryptFile() {
+	if !config.CheckDatabaseFile() {
+		return
+	}
 	cipherText := readFile(config.DBPATH)
 	block := createBlock()
 

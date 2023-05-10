@@ -1,25 +1,29 @@
 package data
 
 import (
-	"fmt"
 	"log"
 	"os"
 
 	"github.com/glebarez/sqlite"
 	"github.com/lunarisnia/pman/config"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var db *gorm.DB
 
 func OpenDatabase() error {
-	config.CheckDatabaseFile()
+	var databaseExisted = config.CheckDatabaseFile()
 	var err error
 
-	db, err = gorm.Open(sqlite.Open(config.DBPATH), &gorm.Config{})
-	fmt.Println(config.DBPATH)
+	db, err = gorm.Open(sqlite.Open(config.DBPATH), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 	if err != nil {
 		return err
+	}
+	if !databaseExisted {
+		MigrateDatabase()
 	}
 
 	return nil
@@ -34,10 +38,11 @@ func MigrateDatabase() {
 	log.Println("Database initiated")
 }
 
-func remindInit() {
+func errorHandler() {
+	EncryptFile()
 	log.Fatalln(`
 ==========================
-Have you ran "pman init"?
+Try running "pman init" then try again
 ==========================
 	`)
 }
