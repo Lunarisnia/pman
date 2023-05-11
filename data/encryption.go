@@ -4,29 +4,32 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
+	"crypto/sha1"
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/lunarisnia/pman/config"
+	"golang.org/x/crypto/pbkdf2"
 )
 
 func dirname() string {
-	path, err := os.Getwd()
+	path, err := os.Executable()
 	if err != nil {
 		log.Fatalf("get current dir err: %v", err.Error())
 	}
 
-	return path
+	return filepath.Dir(path)
 }
 
 func readKey() []byte {
-	// TODO: This return the current path where the command is called not where the program is, change it!
 	key, err := os.ReadFile(dirname() + "/pman-key.txt")
+	hashedKey := pbkdf2.Key(key, key, 4096, 32, sha1.New)
 	if err != nil {
 		log.Fatalf("keyfile read err: %v", err.Error())
 	}
-	return key
+	return hashedKey
 }
 
 func createBlock() cipher.Block {

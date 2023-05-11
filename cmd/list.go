@@ -17,7 +17,6 @@ var listCmd = &cobra.Command{
 	Long:  `Show the list of your saved password service names`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		passwords := data.ReadAllPasswords()
-
 		for _, password := range passwords {
 			fmt.Println(password.ID, password.ServiceName)
 		}
