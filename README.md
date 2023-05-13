@@ -6,7 +6,7 @@ Password manager CLI app written in golang.
 2. Extract the program in your desired location
 3. Add the location to env path
 4. Change the content of pman-key.txt to your desired password
-5. Open any terminal/powershell then type `todo` to test if there is any error
+5. Open any terminal/powershell then type `pman` to test if there is any error
 
 # Documentation
 ## Command
