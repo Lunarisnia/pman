@@ -4,11 +4,11 @@ import (
 	"os"
 )
 
-var DBPATH = ConfigFilePath() + "\\pman-vault.pman"
+var DBPATH = ConfigFilePath() + "/pman-vault.pman"
 
 func ConfigFilePath() string {
 	configDir, _ := os.UserConfigDir()
-	return configDir + "\\pman"
+	return configDir + "/pman"
 }
 
 func CheckDatabaseFile() bool {
