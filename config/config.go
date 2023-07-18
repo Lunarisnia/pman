@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 )
 
@@ -17,6 +18,7 @@ func CheckDatabaseFile() bool {
 		os.Mkdir(ConfigFilePath(), 0777)
 	}
 	_, err := os.ReadFile(filepath)
+	fmt.Println(err, "=====")
 
 	return err == nil
 }
